@@ -1,0 +1,28 @@
+#133. Clone Graph
+# Definition for a undirected graph node
+# class UndirectedGraphNode:
+#     def __init__(self, x):
+#         self.label = x
+#         self.neighbors = []
+
+class Solution:
+    # @param node, a undirected graph node
+    # @return a undirected graph node
+    def cloneGraph(self, node):
+        if node==None:
+            return node
+        que=[node]
+        mapnode=UndirectedGraphNode(node.label) #instantiate a node
+        vis={node:mapnode}                  #if a node has been visited, in this dict.
+        while queue:
+            curr=que.pop(0)
+            for n in curr.neighbors:            #go through current node's neighbors
+                if n in vis:                   
+                    vis[curr].neighbors.append(vis[n])   #copy node's neighbors to mapnode's
+                else:
+                    que.append(n)                         #if this node hasn't been visited, then put in the queue.
+                    copy=UndirectedGraphNode(n.label)
+                    vis[n]=copy                           #update visited 
+                    vis[curr].neighbors.append(copy)
+        return mapnode
+                
