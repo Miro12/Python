@@ -1,0 +1,28 @@
+127. Word Ladder
+class Solution(object):
+    def ladderLength(self, beginWord, endWord, wordList):
+        """
+        :type beginWord: str
+        :type endWord: str
+        :type wordList: Set[str]
+        :rtype: int
+        """
+        wordList.add(endWord)
+        que=[(beginWord,1)]
+        while que:
+            cur=que.pop(0)
+            curword=cur[0]
+            curlen=cur[1]
+            if curword==endWord:
+                return curlen
+            for i in range(len(curword)):    #once change
+                left=curword[:i]
+                right=curword[i+1:]
+                for j in 'qwertyuiopasdfghjklzxcvbnm':
+                    if curword[i]!=j:
+                        nextword=left+j+right
+                        if nextword in wordList:
+                            que.append((nextword,curlen+1)) #same layer
+                            wordList.remove(nextword)
+                            
+        return 0
