@@ -1,0 +1,68 @@
+
+def reverseWords(self, s):  
+      s = ' '.join(s.split()[::-1])  
+      return  s  
+      
+ JAVA
+ O(n) runtime, O(n) space:
+ #public String reverseWords(String s) { StringBuilder reversed = new StringBuilder(); int j = s.length();
+ ＃当对字符串进行修改的时候，需要使用 StringBuffer 和 StringBuilder 类
+for (int i = s.length() - 1; i >= 0; i--) {
+      if (s.charAt(i) == ' ') { ＃找开头
+         j = i;
+      } else if (i == 0 || s.charAt(i - 1) == ' ') { ＃找结尾
+         if (reversed.length() != 0) {＃不是句子开头
+            reversed.append(' ');
+         }
+         reversed.append(s.substring(i, j)); ＃i to j string
+      }
+}
+   return reversed.toString();
+}
+
+C++ O(n),O(1)
+class Solution {
+public:
+    void reverseword(string &s, int i, int j){
+        while(i<j){
+        char temp=s[i];
+        s[i++]=s[j];
+        s[j--]=temp;
+        }
+        
+    }
+    void reverseWords(string &s) {
+         int i=0, j=0;
+         int begin=0;
+         int len=s.length();
+         int wordcount=0;
+         while(true){
+             while(i<len && s[i]==' ') i++; //find word begin
+             if (i==len) break;
+             if (wordcount) s[j++]=' ';
+             begin=j;
+             while(i<len && s[i]!=' '){ s[j]=s[i]; j++; i++;} //find word end
+             reverseword(s,begin,j-1);
+             wordcount++;
+         }
+         s.resize(j);
+         reverseword(s,0,j-1);
+             
+    }
+    
+};
+
+def reverseWords3(text):
+    words=[]
+    length=len(text)
+    space=set(string.whitespace)
+    index=0
+    while index<length:
+        if text[index] not in space:
+            wordStart=index
+            while index<length and text[index] not in space:
+                index+=1
+            words.append(text[wordStart:index])
+        index+=1
+ 
+    print " ".join(reversed(words))
